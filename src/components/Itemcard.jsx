@@ -15,9 +15,16 @@ export function ItemCard({ item, onDelete }) {
     });
   };
 
-  const handleDelete = () => {
-    if (onDelete) {
-      onDelete(item.id);
+  const handleDelete = async () => {
+    try {
+      console.log('[v0] Deleting item with ID:', item.id);
+      if (onDelete) {
+        await onDelete(item.id);
+        setShowDeleteConfirm(false);
+      }
+    } catch (error) {
+      console.error('[v0] Error in handleDelete:', error);
+      alert('Failed to delete item. Please try again.');
       setShowDeleteConfirm(false);
     }
   };
