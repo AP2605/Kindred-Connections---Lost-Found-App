@@ -56,45 +56,47 @@ export function DashboardPage() {
 
   const handleDeleteItem = async (itemId) => {
     try {
+      console.log('[v0] Dashboard: Deleting item with ID:', itemId);
       await itemsService.deleteItem(itemId);
-      refetch();
+      console.log('[v0] Item deleted successfully');
+      await refetch();
       // Refresh stats
       const statsData = await itemsService.getStats();
       setStats(statsData);
     } catch (error) {
-      console.error('Error deleting item:', error);
+      console.error('[v0] Error deleting item:', error);
       alert('Failed to delete item. Please try again.');
     }
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen bg-white dark:bg-gray-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading items...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-400">Loading items...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <Header onReportClick={() => setShowReportForm(true)} />
 
       <StatsBar lostCount={stats.lost} foundCount={stats.found} />
 
-      <div className="container mx-auto px-4 mt-6">
+      <div className="container mx-auto px-4 mt-8">
         {/* Tabs */}
-        <div className="flex gap-4 mb-6 border-b border-border">
+        <div className="flex gap-8 mb-6 border-b border-gray-200 dark:border-gray-800">
           {['lost', 'found'].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-3 font-medium text-sm capitalize transition-colors border-b-2 ${
+              className={`px-0 py-3 font-semibold text-sm capitalize transition-colors border-b-2 ${
                 activeTab === tab
-                  ? 'text-primary border-b-primary'
-                  : 'text-muted-foreground border-b-transparent hover:text-foreground'
+                  ? 'text-green-600 dark:text-green-400 border-b-green-600 dark:border-b-green-400'
+                  : 'text-gray-600 dark:text-gray-400 border-b-transparent hover:text-gray-900 dark:hover:text-white'
               }`}
             >
               {tab === 'lost' ? 'Lost Items' : 'Found Items'}
