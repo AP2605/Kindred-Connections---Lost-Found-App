@@ -54,6 +54,19 @@ export function DashboardPage() {
     setSelectedTags([]);
   };
 
+  const handleDeleteItem = async (itemId) => {
+    try {
+      await itemsService.deleteItem(itemId);
+      refetch();
+      // Refresh stats
+      const statsData = await itemsService.getStats();
+      setStats(statsData);
+    } catch (error) {
+      console.error('Error deleting item:', error);
+      alert('Failed to delete item. Please try again.');
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -102,6 +115,7 @@ export function DashboardPage() {
         items={filteredByTab}
         searchQuery={searchQuery}
         selectedTags={selectedTags}
+        onDeleteItem={handleDeleteItem}
       />
 
       <ReportForm
