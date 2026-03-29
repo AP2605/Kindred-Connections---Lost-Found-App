@@ -1,7 +1,7 @@
 import React from 'react';
 import { ItemCard } from './Itemcard.jsx';
 
-export function ItemGrid({ items, searchQuery, selectedTags }) {
+export function ItemGrid({ items, searchQuery, selectedTags, onDeleteItem }) {
   const filteredItems = items.filter((item) => {
     const matchesSearch = item.item_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -27,7 +27,7 @@ export function ItemGrid({ items, searchQuery, selectedTags }) {
     <div className="container mx-auto px-4 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredItems.map((item) => (
-          <ItemCard key={item.id} item={item} />
+         <ItemCard key={item.id} item={item} onDelete={onDeleteItem} />
         ))}
       </div>
     </div>
