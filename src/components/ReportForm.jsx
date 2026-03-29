@@ -114,11 +114,11 @@ export function ReportForm({ isOpen, onClose, onSubmit }) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header - Fixed */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900 flex-shrink-0">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Report an Item</h2>
+        <div className="flex items-center justify-between p-6 border-b border-green-200 dark:border-green-800 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 flex-shrink-0">
+          <h2 className="text-2xl font-bold text-green-900 dark:text-green-50">Report an Item</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-green-200 dark:hover:bg-green-700 rounded-lg transition-colors"
           >
             <X size={24} className="text-gray-900 dark:text-white" />
           </button>
@@ -133,8 +133,8 @@ export function ReportForm({ isOpen, onClose, onSubmit }) {
           )}
           {/* Status Toggle */}
           <div>
-            <label className="block text-sm font-medium text-foreground mb-3">
-              Item Status
+            <label className="block text-sm font-medium text-gray-900 dark:text-white mb-3">
+              Item Status *
             </label>
             <div className="flex gap-4">
               {['lost', 'found'].map(status => (
@@ -145,9 +145,9 @@ export function ReportForm({ isOpen, onClose, onSubmit }) {
                     value={status}
                     checked={formData.status === status}
                     onChange={handleInputChange}
-                    className="w-4 h-4"
+                    className="w-4 h-4 accent-green-600"
                   />
-                  <span className="text-foreground capitalize">{status}</span>
+                  <span className="text-gray-900 dark:text-white capitalize font-medium">{status === 'lost' ? 'LOST Item' : 'FOUND Item'}</span>
                 </label>
               ))}
             </div>
@@ -286,7 +286,7 @@ export function ReportForm({ isOpen, onClose, onSubmit }) {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+              className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 active:bg-green-800 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
             >
               {loading ? 'Submitting...' : 'Submit Report'}
             </button>
