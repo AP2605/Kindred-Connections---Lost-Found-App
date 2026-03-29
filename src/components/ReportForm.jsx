@@ -227,10 +227,10 @@ export function ReportForm({ isOpen, onClose, onSubmit }) {
                   key={category}
                   type="button"
                   onClick={() => handleTagToggle(category)}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all border-2 cursor-pointer ${
                     formData.tags.includes(category)
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary text-foreground hover:bg-muted'
+                      ? 'bg-primary text-primary-foreground border-primary'
+                      : 'bg-background text-foreground border-border hover:border-primary hover:bg-muted'
                   }`}
                 >
                   {category}
