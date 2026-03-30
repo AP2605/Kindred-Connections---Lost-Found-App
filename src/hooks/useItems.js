@@ -47,9 +47,14 @@ export function useItems() {
 
   const deleteItem = async (id) => {
     try {
+      console.log('[v0] Hook: deleteItem called for ID:', id);
       await itemsService.deleteItem(id);
+      console.log('[v0] Hook: Item deleted from Supabase');
       setItems(items.filter(item => item.id !== id));
+      console.log('[v0] Hook: Items state updated, item removed');
+      return true;
     } catch (err) {
+      console.error('[v0] Hook: Error in deleteItem:', err);
       setError(err.message);
       throw err;
     }
