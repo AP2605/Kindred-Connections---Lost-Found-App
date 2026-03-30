@@ -15,14 +15,18 @@ export function DashboardPage() {
   const [stats, setStats] = useState({ lost: 0, found: 0 });
   const { items, loading, addItem, deleteItem: deleteItemFromHook, refetch } = useItems();
 
-  // Fetch stats
+  // Fetch stats whenever items change
   useEffect(() => {
     const fetchStats = async () => {
+      console.log('[v0] DashboardPage: Fetching stats, items count:', items.length);
       const statsData = await itemsService.getStats();
+      console.log('[v0] DashboardPage: Stats fetched:', statsData);
       setStats(statsData);
     };
-    fetchStats();
-  }, [items]);
+    if (items.length >= 0) {
+      fetchStats();
+    }
+  }, [items.length]);
 
   // Filter items by active tab
   const filteredByTab = items.filter(item => item.status === activeTab);
@@ -56,15 +60,16 @@ export function DashboardPage() {
 
   const handleDeleteItem = async (itemId) => {
     try {
-      console.log('[v0] Dashboard: Deleting item with ID:', itemId);
+      console.log('[v0] Dashboard: Starting delete for item ID:', itemId);
       // Use the hook's deleteItem method which updates state immediately
       await deleteItemFromHook(itemId);
-      console.log('[v0] Item deleted successfully');
-      // Refresh stats
+      console.log('[v0] Dashboard: Item deleted from state');
+      // Manually refresh stats after deletion
       const statsData = await itemsService.getStats();
+      console.log('[v0] Dashboard: Stats after delete:', statsData);
       setStats(statsData);
     } catch (error) {
-      console.error('[v0] Error deleting item:', error);
+      console.error('[v0] Dashboard: Error deleting item:', error);
       alert('Failed to delete item. Please try again.');
     }
   };
