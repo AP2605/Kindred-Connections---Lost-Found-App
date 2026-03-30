@@ -42,28 +42,28 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 to-secondary flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-green-950 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo Section */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center mx-auto mb-4">
-            <span className="text-primary-foreground font-bold text-2xl">KC</span>
+          <div className="w-20 h-20 bg-gradient-to-br from-green-600 to-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <span className="text-white font-bold text-3xl">KC</span>
           </div>
-          <h1 className="text-3xl font-bold text-foreground mb-2">Kindred Connections</h1>
-          <p className="text-muted-foreground">Lost & Found Community Portal</p>
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Kindred Connections</h1>
+          <p className="text-gray-600 dark:text-gray-400 text-lg">Lost & Found Community Portal</p>
         </div>
 
         {/* Card */}
-        <div className="bg-card rounded-lg border border-border p-8 shadow-lg">
-          <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-green-200 dark:border-green-900 p-8 shadow-2xl">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
             {isSignUp ? 'Create Account' : 'Welcome Back'}
           </h2>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                 Email Address
               </label>
               <input
@@ -72,13 +72,13 @@ export function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent dark:focus:ring-green-400"
               />
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                 Password
               </label>
               <input
@@ -91,12 +91,12 @@ export function LoginPage() {
               />
             </div>
 
-            {/* Error Message */}
+            {/* Error/Success Message */}
             {error && (
-              <div className={`p-4 rounded-lg text-sm ${
+              <div className={`p-4 rounded-lg text-sm font-medium border ${
                 error.includes('Verification') || error.includes('sent')
-                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
-                  : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
+                  ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 border-green-300 dark:border-green-700'
+                  : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 border-red-300 dark:border-red-700'
               }`}>
                 {error}
               </div>
@@ -106,15 +106,15 @@ export function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-4 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-opacity-90 transition-all font-medium disabled:opacity-50 mt-6"
+              className="w-full px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-lg transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed mt-6 shadow-md active:scale-95"
             >
               {loading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Sign In'}
             </button>
           </form>
 
           {/* Toggle Sign Up / Sign In */}
-          <div className="mt-6 text-center border-t border-border pt-6">
-            <p className="text-muted-foreground text-sm mb-2">
+          <div className="mt-8 text-center border-t border-gray-200 dark:border-gray-700 pt-6">
+            <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
               {isSignUp ? 'Already have an account?' : "Don't have an account?"}
             </p>
             <button
@@ -122,7 +122,7 @@ export function LoginPage() {
                 setIsSignUp(!isSignUp);
                 setError('');
               }}
-              className="text-primary hover:text-primary/80 font-medium text-sm transition-colors"
+              className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-semibold text-sm transition-colors"
             >
               {isSignUp ? 'Sign In' : 'Create Account'}
             </button>
@@ -130,7 +130,7 @@ export function LoginPage() {
         </div>
 
         {/* Info Text */}
-        <p className="text-center text-muted-foreground text-sm mt-8">
+       <p className="text-center text-gray-600 dark:text-gray-400 text-sm mt-8 font-medium">
           Help your community find lost and found items
         </p>
       </div>
