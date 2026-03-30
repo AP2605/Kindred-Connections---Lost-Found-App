@@ -48,10 +48,15 @@ export function useItems() {
   const deleteItem = async (id) => {
     try {
       console.log('[v0] Hook: deleteItem called for ID:', id);
-      await itemsService.deleteItem(id);
-      console.log('[v0] Hook: Item deleted from Supabase');
-      setItems(items.filter(item => item.id !== id));
-      console.log('[v0] Hook: Items state updated, item removed');
+      // First delete from Supabase - wait for it to complete
+      const deleteResult = await itemsService.deleteItem(id);
+      console.log('[v0] Hook: Supabase deletion result:', deleteResult);
+      
+      // Then update the local state to remove the item
+      const updatedItems = items.filter(item => item.id !== id);
+      setItems(updatedItems);
+      console.log('[v0] Hook: Items state updated, item removed. New count:', updatedItems.length);
+      
       return true;
     } catch (err) {
       console.error('[v0] Hook: Error in deleteItem:', err);
