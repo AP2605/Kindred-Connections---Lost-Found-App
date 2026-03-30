@@ -70,15 +70,24 @@ export const itemsService = {
   // Delete item
   async deleteItem(id) {
     try {
-      const { error } = await supabase
+       console.log('[v0] Service: Deleting item with ID:', id);
+       const { data, error } = await supabase
         .from('items')
         .delete()
-        .eq('id', id);
+        .eq('id', id)
+        .select();
 
-      if (error) throw error;
+      console.log('[v0] Service: Delete response:', { data, error });
+
+      if (error) {
+        console.error('[v0] Service: Delete error:', error);
+        throw error;
+      }
+
+      console.log('[v0] Service: Item successfully deleted from Supabase');
       return true;
     } catch (error) {
-      console.error('Error deleting item:', error);
+      console.error('[v0] Service: Error deleting item:', error);
       throw error;
     }
   },
