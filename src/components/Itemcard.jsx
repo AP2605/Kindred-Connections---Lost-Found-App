@@ -3,6 +3,7 @@ import { Calendar, MapPin, User, Phone, Trash2 } from 'lucide-react';
 
 export function ItemCard({ item, onDelete }) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const formatDate = (dateString) => {
     if (!dateString) return 'Date not specified';
@@ -17,15 +18,19 @@ export function ItemCard({ item, onDelete }) {
 
   const handleDelete = async () => {
     try {
+      setIsDeleting(true);
       console.log('[v0] Deleting item with ID:', item.id);
       if (onDelete) {
         await onDelete(item.id);
+        console.log('[v0] Delete completed for item:', item.id);
         setShowDeleteConfirm(false);
       }
     } catch (error) {
       console.error('[v0] Error in handleDelete:', error);
       alert('Failed to delete item. Please try again.');
       setShowDeleteConfirm(false);
+      } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -106,9 +111,10 @@ export function ItemCard({ item, onDelete }) {
               </button>
               <button
                 onClick={handleDelete}
-                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
+               disabled={isDeleting}
+               className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Delete
+                {isDeleting ? 'Deleting...' : 'Delete'}
               </button>
             </div>
           </div>
