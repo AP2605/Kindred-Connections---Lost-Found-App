@@ -61,13 +61,20 @@ export function DashboardPage() {
   const handleDeleteItem = async (itemId) => {
     try {
       console.log('[v0] Dashboard: Starting delete for item ID:', itemId);
-      // Use the hook's deleteItem method which updates state immediately
+      
+       // Step 1: Delete from Supabase and update local state
       await deleteItemFromHook(itemId);
-      console.log('[v0] Dashboard: Item deleted from state');
-      // Manually refresh stats after deletion
+      console.log('[v0] Dashboard: Item deleted successfully');
+      
+      // Step 2: Wait a moment for Supabase to sync
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Step 3: Fetch fresh stats from Supabase
       const statsData = await itemsService.getStats();
-      console.log('[v0] Dashboard: Stats after delete:', statsData);
+      console.log('[v0] Dashboard: Fresh stats from Supabase:', statsData);
       setStats(statsData);
+
+       console.log('[v0] Dashboard: Delete and stats update complete');
     } catch (error) {
       console.error('[v0] Dashboard: Error deleting item:', error);
       alert('Failed to delete item. Please try again.');
