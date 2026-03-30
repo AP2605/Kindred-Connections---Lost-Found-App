@@ -22,7 +22,13 @@ export function LoginPage() {
         if (result.error) {
           setError(result.error);
         } else {
-          setError('Account created! Please check your email to verify your account.');
+          // Auto sign in after signup
+          const signInResult = await signIn(email, password);
+          if (signInResult.error) {
+            setError(signInResult.error);
+          } else {
+            navigate('/');
+          }
         }
       } else {
         const result = await signIn(email, password);
