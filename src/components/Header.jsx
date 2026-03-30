@@ -33,7 +33,7 @@ export function Header({ onReportClick }) {
               <span className="text-sm text-gray-600 dark:text-gray-400 hidden sm:inline">{user?.email}</span>
               <button
                 onClick={handleSignOut}
-                className="p-2 hover:bg-secondary rounded-lg transition-colors"
+                className="p-2 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors text-white dark:text-white hover:text-green-700 dark:hover:text-green-300"
                 title="Logout"
               >
                 <LogOut size={20} />
