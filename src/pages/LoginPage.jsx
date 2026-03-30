@@ -22,13 +22,9 @@ export function LoginPage() {
         if (result.error) {
           setError(result.error);
         } else {
-          // Auto sign in after signup
-          const signInResult = await signIn(email, password);
-          if (signInResult.error) {
-            setError(signInResult.error);
-          } else {
-            navigate('/');
-          }
+          setError('Verification email sent! Please check your email to confirm your account. Click the link to verify.');
+          setEmail('');
+          setPassword('');
         }
       } else {
         const result = await signIn(email, password);
@@ -98,9 +94,9 @@ export function LoginPage() {
             {/* Error Message */}
             {error && (
               <div className={`p-4 rounded-lg text-sm ${
-                isSignUp && !error.includes('error')
-                  ? 'bg-blue-100 text-blue-800'
-                  : 'bg-red-100 text-red-800'
+                error.includes('Verification') || error.includes('sent')
+                  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                  : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
               }`}>
                 {error}
               </div>
