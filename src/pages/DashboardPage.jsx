@@ -13,7 +13,7 @@ export function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
   const [stats, setStats] = useState({ lost: 0, found: 0 });
-  const { items, loading, addItem, refetch } = useItems();
+  const { items, loading, addItem, deleteItem: deleteItemFromHook, refetch } = useItems();
 
   // Fetch stats
   useEffect(() => {
@@ -57,9 +57,9 @@ export function DashboardPage() {
   const handleDeleteItem = async (itemId) => {
     try {
       console.log('[v0] Dashboard: Deleting item with ID:', itemId);
-      await itemsService.deleteItem(itemId);
+      // Use the hook's deleteItem method which updates state immediately
+      await deleteItemFromHook(itemId);
       console.log('[v0] Item deleted successfully');
-      await refetch();
       // Refresh stats
       const statsData = await itemsService.getStats();
       setStats(statsData);
